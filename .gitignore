@@ -1,9 +1,11 @@
 # Build dir
-
 build/*
 
 # Prerequisites
 *.d
+
+#Vim swp files
+*.swp
 
 # Compiled Object files
 *.slo
