@@ -4,12 +4,15 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
 cmake_minimum_required(VERSION 3.16)
 
-project(aic LANGUAGES CXX)
+project(time-series-tools LANGUAGES CXX)
 
 set(IS_MAIN_PROJECT OFF)
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
   set(IS_MAIN_PROJECT ON)
 endif()
+
+option(FLAG_BUILD_BINDINGS
+       "Builds the python bindings executable for the time_series_tools_lib" ON)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
@@ -30,3 +33,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 add_subdirectory(src)
 
 add_subdirectory(tests)
+
+if(FLAG_BUILD_BINDINGS)
+  add_subdirectory(bindings/python)
+endif()
