@@ -6,25 +6,26 @@ cmake_minimum_required(VERSION 3.16)
 
 project(time-series-tools LANGUAGES CXX)
 
-set(IS_MAIN_PROJECT OFF)
+set(TIME_SERIES_TOOLS_IS_MAIN_PROJECT OFF)
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-  set(IS_MAIN_PROJECT ON)
+  set(TIME_SERIES_TOOLS_IS_MAIN_PROJECT ON)
 endif()
 
 option(FLAG_BUILD_BINDINGS
-       "Builds the python bindings executable for the time_series_tools_lib" ON)
+       "Builds the python bindings executable for the time_series_tools_lib"
+       OFF)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if(IS_MAIN_PROJECT)
+if(TIME_SERIES_TOOLS_IS_MAIN_PROJECT)
   set(CMAKE_CXX_STANDARD 11)
 endif()
 
 option(BUILD_TESTS "Builds the test executable for the project"
-       ${IS_MAIN_PROJECT})
+       ${TIME_SERIES_TOOLS_IS_MAIN_PROJECT})
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
