@@ -33,3 +33,13 @@ TEST(MannKendallTests, TestNoTrend) {
 
   EXPECT_EQ(result.trend, MannKendall::Trend::no_trend);
 }
+
+TEST(MannKendallTests, TestSlope) {
+  std::vector<double> data = {1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6};
+
+  MannKendall algorithm(.05);
+
+  auto result = algorithm.set_data(data);
+
+  EXPECT_EQ(result.slope, .5);
+}
