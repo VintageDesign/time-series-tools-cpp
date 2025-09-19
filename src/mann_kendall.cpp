@@ -113,7 +113,7 @@ std::vector<std::uint32_t> MannKendall::find_ties() {
 }
 
 double MannKendall::calculate_p_value(double z) {
-  double phi = 0.5 * (1.0 + std::erf(z / std::sqrt(2.0)));
+  double phi = 0.5 * (1.0 + std::erf(std::abs(z) / std::sqrt(2.0)));
   double p_value = 2.0 * (1.0 - phi);
   return p_value;
 }
