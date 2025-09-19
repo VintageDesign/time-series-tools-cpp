@@ -58,9 +58,6 @@ MannKendall::Result MannKendall::perform_test() {
 
   double p_value = calculate_p_value(z_value);
 
-  std::cout << "Z value: " << z_value << "\n";
-  std::cout << "Two-tailed probability: " << p_value << "\n";
-
   MannKendall::Result result;
   result.probability = p_value;
   if (z_value >= (1.0 - _significance)) {
@@ -70,6 +67,7 @@ MannKendall::Result MannKendall::perform_test() {
     result.trend = Trend::downward;
   }
 
+  result.slope = calculate_slope();
   return result;
 }
 
@@ -118,4 +116,23 @@ double MannKendall::calculate_p_value(double z) {
   double phi = 0.5 * (1.0 + std::erf(z / std::sqrt(2.0)));
   double p_value = 2.0 * (1.0 - phi);
   return p_value;
+}
+
+// Assumes uniform distribution of data points
+double MannKendall::calculate_slope() {
+  std::vector<double> slopes;
+
+  for (int i = 0; i < _data.size() - 1; i++) {
+    for (int j = i + 1; j < _data.size(); j++) {
+      slopes.push_back((_data[j] - _data[i]) / (j - i));
+    }
+  }
+
+  std::sort(slopes.begin(), slopes.end());
+
+  if (slopes.size() % 2 == 0) {
+    return (slopes[slopes.size() / 2] + slopes[(slopes.size() / 2) - 1]) / 2.0;
+  } else {
+    return slopes[slopes.size() / 2];
+  }
 }

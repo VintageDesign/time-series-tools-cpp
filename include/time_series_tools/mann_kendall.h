@@ -30,6 +30,7 @@ private:
   std::int8_t compute_sign(double lhs, double rhs);
 
   double calculate_p_value(double z);
+  double calculate_slope();
 
   std::vector<std::uint32_t> find_ties();
 };
