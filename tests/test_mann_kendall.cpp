@@ -11,6 +11,8 @@ TEST(MannKendallTests, TestUpwardTrend) {
 
   auto result = algorithm.set_data(data);
 
+  EXPECT_GT(result.probability, 0);
+  EXPECT_LT(result.probability, 1);
   EXPECT_EQ(result.trend, MannKendall::Trend::upward);
 }
 
@@ -21,6 +23,8 @@ TEST(MannKendallTests, TestDownwardTrend) {
 
   auto result = algorithm.set_data(data);
 
+  EXPECT_GT(result.probability, 0);
+  EXPECT_LT(result.probability, 1);
   EXPECT_EQ(result.trend, MannKendall::Trend::downward);
 }
 
@@ -31,6 +35,8 @@ TEST(MannKendallTests, TestNoTrend) {
 
   auto result = algorithm.set_data(data);
 
+  EXPECT_GT(result.probability, 0);
+  EXPECT_LT(result.probability, 1);
   EXPECT_EQ(result.trend, MannKendall::Trend::no_trend);
 }
 
@@ -41,5 +47,7 @@ TEST(MannKendallTests, TestSlope) {
 
   auto result = algorithm.set_data(data);
 
+  EXPECT_GT(result.probability, 0);
+  EXPECT_LT(result.probability, 1);
   EXPECT_EQ(result.slope, .5);
 }
