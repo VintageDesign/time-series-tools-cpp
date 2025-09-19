@@ -29,6 +29,8 @@ private:
   Result perform_test();
   std::int8_t compute_sign(double lhs, double rhs);
 
+  double calculate_p_value(double z);
+
   std::vector<std::uint32_t> find_ties();
 };
 } // namespace  tst

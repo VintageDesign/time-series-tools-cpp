@@ -56,8 +56,13 @@ MannKendall::Result MannKendall::perform_test() {
     z_value = (s_value + 1) / std::sqrt(variance);
   }
 
+  double p_value = calculate_p_value(z_value);
+
+  std::cout << "Z value: " << z_value << "\n";
+  std::cout << "Two-tailed probability: " << p_value << "\n";
+
   MannKendall::Result result;
-  result.probability = z_value;
+  result.probability = p_value;
   if (z_value >= (1.0 - _significance)) {
     result.trend = Trend::upward;
   }
@@ -107,4 +112,10 @@ std::vector<std::uint32_t> MannKendall::find_ties() {
   }
 
   return ties_count;
+}
+
+double MannKendall::calculate_p_value(double z) {
+  double phi = 0.5 * (1.0 + std::erf(z / std::sqrt(2.0)));
+  double p_value = 2.0 * (1.0 - phi);
+  return p_value;
 }
